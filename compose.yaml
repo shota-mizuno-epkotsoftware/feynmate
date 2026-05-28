@@ -1,0 +1,43 @@
+services:
+  nginx:
+    image: nginx:1.30-alpine
+    ports:
+      - "8000:80"
+    volumes:
+      - ./backend:/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+
+  app:
+    build: ./docker/php
+    volumes:
+      - ./backend:/var/www/html
+    depends_on:
+      - db
+
+  node:
+    image: node:22-alpine
+    working_dir: /app
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - node-modules:/app/node_modules
+    command: sh -c "npm install && npm run dev -- --host"
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: feynmate
+      MYSQL_USER: feynmate
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: secret
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:
+  node-modules:
