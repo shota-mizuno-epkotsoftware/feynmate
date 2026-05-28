@@ -12,3 +12,6 @@
 
 # misc
 .DS_Store
+
+# 一時ファイル
+/temp/
