@@ -2,23 +2,26 @@
 
 ## 全体
 
-- 認証系-> `/`, アプリAPI-> `/api`
-- 認証: Breeze(Sanctum SPA)
+- 認証: Sanctum SPA
 - エラー： 401(Unauthorized)/ 403(Forbidden)/ 404(NotFound)/ 422(Validation, Laravel標準形式)/ 503(ServiceUnavailable)
 
 ## エンドポイント
 
 現状は画面設計のMust中心に記載
 
-### 認証(Breeze提供)
+### 認証
 
 | メソッド | パス | 認証 | 概要 |
 | --- | --- | --- | --- |
 | GET | `/sanctum/csrf-cookie` | 不要 | CSRF Cookie 取得 |
-| POST | `/register` | 不要 | ユーザー登録 |
-| POST | `/login` | 不要 | ログイン |
-| POST | `/logout` | 要 | ログアウト |
+| POST | `/api/register` | 不要 | ユーザー登録 |
+| POST | `/api/login` | 不要 | ログイン |
+| POST | `/api/logout` | 要 | ログアウト |
 | GET | `/api/user` | 要 | ログイン中のユーザー |
+| POST | `/api/forgot-password` | 不要 | パスワードリセットメール送信 |
+| POST | `/api/reset-password` | 不要 | パスワードリセット実行 |
+| GET | `/api/verify-email/{id}/{hash}` | 要 | メールアドレス確認 |
+| POST | `/api/email/verification-notification` | 要 | 確認メール再送信 |
 
 ### アプリ
 
